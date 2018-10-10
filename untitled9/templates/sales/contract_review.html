@@ -1,0 +1,43 @@
+
+{% extends 'index.html' %}
+
+{% block page-content %}
+
+    学员缴费记录
+
+    <div id="content">
+        <h3>学员基本信息审核</h3>
+        {{ customer_form.as_table }}
+        <form class="form-horizontal" method="post" role="form">{% csrf_token %}
+        {{ enroll_form.errors }}
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">客户</label>
+            <div class="col-sm-10">
+                qq:{{ customer_obj.qq }} name:{{ customer_obj.qq_name }}
+            </div>
+        </div>
+
+            {% for field in enroll_form %}
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{ field.name }}</label>
+                    <div class="col-sm-10">
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+            <hr>
+        {{ enroll_form.ap_p }}
+            <a href="{% url 'enrollment_rejection' enroll_obj.id %}" class="btn btn-danger" >驳回合同</a>
+            <a href="{% url 'payment' enroll_obj.id %}"  class="btn btn-info pull-right">审核通过</a>
+        </form>
+        <div class="row">
+            <ul>
+                {% for k,v in msgs.items %}
+                 <li>{{ k }}:{{ v }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

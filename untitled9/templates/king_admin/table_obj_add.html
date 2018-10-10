@@ -1,0 +1,31 @@
+{% extends 'king_admin/table_index.html' %}
+{% load tags %}
+
+
+
+{% block container %}
+
+    <form class="form-horizontal" method="post">{% csrf_token %}
+    {{ form_obj.errors }}
+        {% for field in form_obj %}
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label" style="font-weight: normal">
+
+                {% if field.field.required %}
+                <b>{{ field.label }}</b>
+                {% else %}
+                {{ field.label }}
+                {% endif%}
+            </label>
+            <div class="col-sm-6">
+              {{ field }}
+            </div>
+          </div>
+        {% endfor %}
+        <div class="form-group">
+            <div class="col-sm-2  pull-right">
+                <button type="submit" class="btn btn-success" >Save</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
